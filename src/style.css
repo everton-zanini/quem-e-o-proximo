@@ -1,0 +1,210 @@
+:root {
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background: #0b0b12;
+  touch-action: none;
+  overscroll-behavior: none;
+  -webkit-user-select: none;
+  user-select: none;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+}
+
+#game-container {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  background: #0b0b12;
+}
+
+#game-container canvas {
+  image-rendering: pixelated;
+  image-rendering: -moz-crisp-edges;
+  image-rendering: crisp-edges;
+}
+
+/* Dialogue overlay (DOM, positioned above the canvas) */
+.dialogue-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10;
+  padding: 0 12px calc(16px + env(safe-area-inset-bottom, 0px)) 12px;
+  pointer-events: none;
+}
+
+.dialogue-overlay.is-visible {
+  display: flex;
+}
+
+.dialogue-box {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 420px;
+  background: #1c1c28;
+  border: 3px solid #f4d35e;
+  border-radius: 10px;
+  padding: 16px;
+  color: #f5f5f5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+  animation: dialogue-in 0.15s ease-out;
+}
+
+@keyframes dialogue-in {
+  from {
+    transform: translateY(16px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+.dialogue-name {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f4d35e;
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+
+.dialogue-text {
+  font-size: 17px;
+  line-height: 1.4;
+  margin: 0 0 14px 0;
+}
+
+.dialogue-options {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.dialogue-option {
+  appearance: none;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 8px;
+  min-height: 48px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #1c1c28;
+  background: #f5f5f5;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  line-height: 1.15;
+  text-align: center;
+}
+
+.dialogue-option:active {
+  transform: scale(0.96);
+  filter: brightness(0.9);
+}
+
+.dialogue-option[data-action='OUVIR'] {
+  background: #8ecae6;
+}
+
+.dialogue-option[data-action='AJUDAR'] {
+  background: #ff8fa3;
+}
+
+.dialogue-option[data-action='COMPARTILHAR_ESPERANCA'] {
+  background: #f4d35e;
+}
+
+.dialogue-option[data-action='SAIR'] {
+  background: #adb5bd;
+}
+
+/* Character/name select overlay (DOM, bottom-anchored like the dialogue box) */
+.select-overlay {
+  position: fixed;
+  inset: 0;
+  display: none;
+  align-items: flex-end;
+  justify-content: center;
+  z-index: 10;
+  padding: 0 12px calc(16px + env(safe-area-inset-bottom, 0px)) 12px;
+  pointer-events: none;
+}
+
+.select-overlay.is-visible {
+  display: flex;
+}
+
+.select-box {
+  pointer-events: auto;
+  width: 100%;
+  max-width: 420px;
+  background: #1c1c28;
+  border: 3px solid #f4d35e;
+  border-radius: 10px;
+  padding: 16px;
+  color: #f5f5f5;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
+}
+
+.select-name-label {
+  font-size: 13px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: #f4d35e;
+  margin: 0 0 6px 0;
+  font-weight: 700;
+}
+
+.select-name-input {
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  font-size: 16px;
+  padding: 12px 14px;
+  border-radius: 8px;
+  border: none;
+  margin-bottom: 12px;
+  background: #f5f5f5;
+  color: #1c1c28;
+}
+
+.select-start-button {
+  appearance: none;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 8px;
+  min-height: 48px;
+  width: 100%;
+  font-size: 16px;
+  font-weight: 700;
+  color: #1c1c28;
+  background: #f4d35e;
+  cursor: pointer;
+}
+
+.select-start-button:active {
+  transform: scale(0.97);
+  filter: brightness(0.9);
+}
