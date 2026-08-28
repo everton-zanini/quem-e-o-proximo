@@ -4,7 +4,7 @@ import { BIBLE_REFERENCE, CLOSING_WORD, REFLECTION_LINES } from '../data/reflect
 import { AudioManager, SFX, LOOPS } from '../systems/AudioManager';
 import { playerProfile } from '../systems/PlayerProfile';
 
-const LINE_HOLD_MS = 1800;
+const LINE_HOLD_MS = 3600;
 const ENDING_THEME_VOLUME = 0.4;
 
 export class ResultScene extends Phaser.Scene {
@@ -94,7 +94,21 @@ export class ResultScene extends Phaser.Scene {
 
     replayButton.on('pointerdown', () => this.scene.start('InstructionsScene'));
 
-    this.playReflectionSequence(reflectionText, verseText, replayButton);
+    const continueButton = this.add
+      .text(width / 2, height - 40, 'CONTINUAR', {
+        fontFamily: 'monospace',
+        fontSize: '14px',
+        color: '#1c1c28',
+        backgroundColor: '#f4d35e',
+        padding: { x: 18, y: 10 },
+      })
+      .setOrigin(0.5)
+      .setInteractive({ useHandCursor: true });
+
+    continueButton.on('pointerdown', () => {
+      continueButton.destroy();
+      this.playReflectionSequence(reflectionText, verseText, replayButton);
+    });
   }
 
   private playReflectionSequence(
